@@ -16,7 +16,5 @@ namespace Snake
                 pointList.Add(p);
             }
         }
-
-
     }
 }

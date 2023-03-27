@@ -26,6 +26,7 @@ namespace Snake
             int y = rnd.Next(2, mapHeight - 2);
             return new Point(x, y, symb);
         }
+
         public Point GenerateFood2()
         {
 

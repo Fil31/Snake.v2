@@ -16,10 +16,10 @@ namespace Snake
     {
         private static SoundManager _soundManager = new SoundManager();
         private static Score _score = new Score();
+        private static ScoreManager _scoreManager = new ScoreManager("Names.txt");
         static void Main(string[] args)
         {
             _soundManager.PlayBackgroundMusicAsync();
-
             Console.BackgroundColor = ConsoleColor.Green;
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
@@ -44,6 +44,7 @@ namespace Snake
             {
                 if (walls.IsHit(snake) || snake.IsHitTail())
                 {
+                    _soundManager.Stop();
                     break;
                 }
 
@@ -52,10 +53,9 @@ namespace Snake
                     food = foodGenerator.GenerateFood();
                     food.Draw();
                     score++;
-                    _score.Increase(1); 
-                    _score.Draw(1, 26); 
+                    _score.Increase(1);
+                    _score.Draw(1, 26);
                 }
-            
                 else
                 {
                     snake.Move();
@@ -69,6 +69,12 @@ namespace Snake
             }
             string str_score = Convert.ToString(score);
             WriteGameOver(str_score);
+
+            // Добавьте эти строки после завершения игры
+            string playerName = _scoreManager.GetPlayerName();
+            _scoreManager.SavePlayerScore(playerName, str_score);
+            _scoreManager.DisplayResults();
+
             Console.ReadLine();
         }
 
@@ -87,6 +93,7 @@ namespace Snake
             WriteText("=========================", xOffset, yOffset++);
             return;
         }
+
         public static void WriteText(string text, int xOffset, int YOffset)
         {
             Console.SetCursorPosition(xOffset, YOffset);

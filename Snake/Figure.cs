@@ -16,6 +16,7 @@ namespace Snake
                 point.Draw();
             }
         }
+
         public bool IsHit(Figure figure)
         {
             foreach (var point in pointList)
@@ -27,6 +28,7 @@ namespace Snake
             }
             return false;
         }
+
         public bool IsHit(Point point)
         {
             foreach (var p in pointList)

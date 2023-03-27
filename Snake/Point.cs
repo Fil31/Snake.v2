@@ -44,11 +44,13 @@ namespace Snake
                 y = y + offset;
             }
         }
+
         public void Draw()
         {
             Console.SetCursorPosition(x, y);
             Console.Write(symb);
         }
+
         public void Clear()
         {
             symb = ' ';

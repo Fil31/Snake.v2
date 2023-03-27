@@ -11,6 +11,7 @@ namespace Snake
     public class SoundManager
     {
         private string _backgroundMusicPath = @"C:\Users\clash\source\repos\Snake\Snake\start.mp3";
+        private WaveOutEvent _backgroundMusicPlayer;
 
         public async Task PlayEatSoundAsync()
         {
@@ -28,17 +29,21 @@ namespace Snake
         {
             await PlayBackgroundMusicAsync(_backgroundMusicPath);
         }
+        public void Stop()
+        {
+            _backgroundMusicPlayer?.Stop();
+        }
 
         private async Task PlayBackgroundMusicAsync(string musicPath)
         {
             await Task.Run(() =>
             {
                 using (var audioFile = new AudioFileReader(musicPath))
-                using (var outputDevice = new WaveOutEvent { DesiredLatency = 200 })
+                using (_backgroundMusicPlayer = new WaveOutEvent { DesiredLatency = 200 })
                 {
-                    outputDevice.Init(audioFile);
-                    outputDevice.Play();
-                    while (outputDevice.PlaybackState == PlaybackState.Playing)
+                    _backgroundMusicPlayer.Init(audioFile);
+                    _backgroundMusicPlayer.Play();
+                    while (_backgroundMusicPlayer.PlaybackState == PlaybackState.Playing)
                     {
                         Thread.Sleep(1000);
                     }

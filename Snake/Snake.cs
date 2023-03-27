@@ -24,7 +24,7 @@ namespace Snake
             }
 
         }
-        // ******
+
         public void Move()
         {
             Point tail = pointList.First();
@@ -82,6 +82,7 @@ namespace Snake
         
             }
         }
+
         public bool IsHitTail()
         {
             Point head = pointList.Last();
@@ -94,7 +95,8 @@ namespace Snake
             }
             return false;
         }
-        protected virtual void OnFoodEaten()
+
+        public void OnFoodEaten()
         {
             FoodEaten?.Invoke(this, EventArgs.Empty);
         }
