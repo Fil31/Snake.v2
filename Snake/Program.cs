@@ -1,16 +1,21 @@
 ﻿using Snake;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 
 namespace Snake
 {
     class Program
     {
+        static MusicPlayer? _musicPlayer;
+
         static void Main(string[] args)
         {
+            StartMusic();
             Console.BackgroundColor = ConsoleColor.Green;
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
@@ -58,7 +63,16 @@ namespace Snake
             string str_score = Convert.ToString(score);
             WriteGameOver(str_score);
             Console.ReadLine();
+            _musicPlayer?.Stop();
+            _musicPlayer?.Dispose();
         }
+
+        static void StartMusic()
+        {
+            _musicPlayer = new MusicPlayer(@"C:\Users\clash\source\repos\Snake\Snake\start.mp3");
+            _musicPlayer.PlayLooping();
+        }
+
         public static void WriteGameOver(string score)
         {
             Console.Beep();
