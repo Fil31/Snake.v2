@@ -65,7 +65,6 @@ namespace Snake
             }
         }
 
-        //********
         public bool Eat(Point food)
         {
             Point head = GetNextPoint();
