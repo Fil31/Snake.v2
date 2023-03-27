@@ -1,4 +1,5 @@
-﻿using Snake;
+﻿using NAudio.Wave;
+using Snake;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,16 +7,19 @@ using System.Drawing;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Snake
 {
     class Program
     {
-        static MusicPlayer? _musicPlayer;
-
+        private static SoundManager _soundManager = new SoundManager();
+        private static Score _score = new Score();
         static void Main(string[] args)
         {
-            StartMusic();
+            _soundManager.PlayBackgroundMusicAsync();
+
             Console.BackgroundColor = ConsoleColor.Green;
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
@@ -26,6 +30,7 @@ namespace Snake
             Point snakeTail = new Point(15, 15, '¤');
             Snake snake = new Snake(snakeTail, 5, Direction.RIGHT);
             snake.Draw();
+            snake.FoodEaten += (sender, e) => _soundManager.PlayEatSoundAsync();
 
             Console.ForegroundColor = ConsoleColor.White;
             FoodGenerator foodGenerator = new FoodGenerator(80, 25, '%');
@@ -47,7 +52,10 @@ namespace Snake
                     food = foodGenerator.GenerateFood();
                     food.Draw();
                     score++;
+                    _score.Increase(1); 
+                    _score.Draw(1, 26); 
                 }
+            
                 else
                 {
                     snake.Move();
@@ -58,24 +66,15 @@ namespace Snake
                     snake.HandleKeys(key.Key);
                 }
                 Thread.Sleep(100);
-
             }
             string str_score = Convert.ToString(score);
             WriteGameOver(str_score);
             Console.ReadLine();
-            _musicPlayer?.Stop();
-            _musicPlayer?.Dispose();
-        }
-
-        static void StartMusic()
-        {
-            _musicPlayer = new MusicPlayer(@"C:\Users\clash\source\repos\Snake\Snake\start.mp3");
-            _musicPlayer.PlayLooping();
         }
 
         public static void WriteGameOver(string score)
         {
-            Console.Beep();
+            _soundManager.PlayGameOverSoundAsync();
             int xOffset = 25;
             int yOffset = 8;
             Console.ForegroundColor = ConsoleColor.Red;

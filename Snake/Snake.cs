@@ -3,11 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NAudio.Wave;
+
 
 namespace Snake
 {
     class Snake : Figure
     {
+        public event EventHandler FoodEaten;
         Direction direction;
         public Snake(Point tail, int length, Direction _direction)
         {
@@ -19,6 +22,7 @@ namespace Snake
                 p.Move(i, direction);
                 pointList.Add(p);
             }
+
         }
         // ******
         public void Move()
@@ -40,9 +44,6 @@ namespace Snake
             nextPoint.Move(1, direction);
             return nextPoint;
         }
-
-
-
 
         public void HandleKeys(ConsoleKey key)
         {
@@ -72,11 +73,13 @@ namespace Snake
             {
                 food.symb = head.symb;
                 pointList.Add(food);
+                OnFoodEaten(); 
                 return true;
             }
             else
             {
                 return false;
+        
             }
         }
         public bool IsHitTail()
@@ -90,6 +93,10 @@ namespace Snake
                 }
             }
             return false;
+        }
+        protected virtual void OnFoodEaten()
+        {
+            FoodEaten?.Invoke(this, EventArgs.Empty);
         }
     }
 }
