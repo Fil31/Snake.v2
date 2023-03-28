@@ -16,7 +16,7 @@ namespace Snake
 
         public string GetPlayerName()
         {
-            Console.WriteLine("Введите ваше имя (минимум 3 символа):");
+            Console.WriteLine("Enter your name (min 3 letters):");
             string playerName;
             do
             {
@@ -37,7 +37,7 @@ namespace Snake
         public void DisplayResults()
         {
             Console.Clear();
-            Console.WriteLine("Результаты:");
+            Console.WriteLine("Results:");
 
             var results = new List<Tuple<string, int>>();
 

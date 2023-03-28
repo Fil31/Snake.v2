@@ -10,18 +10,18 @@ namespace Snake
 {
     public class SoundManager
     {
-        private string _backgroundMusicPath = @"C:\Users\clash\source\repos\Snake\Snake\start.mp3";
+        private string _backgroundMusicPath = @"C:\Users\opilane\Source\Repos\Snake.v2\Snake\start.mp3";
         private WaveOutEvent _backgroundMusicPlayer;
 
         public async Task PlayEatSoundAsync()
         {
-            string eatSoundPath = @"C:\Users\clash\source\repos\Snake\Snake\eat.mp3";
+            string eatSoundPath = @"C:\Users\opilane\Source\Repos\Snake.v2\Snake\eat.mp3";
             await PlaySoundAsync(eatSoundPath);
         }
 
         public async Task PlayGameOverSoundAsync()
         {
-            string gameOverSoundPath = @"C:\Users\clash\source\repos\Snake\Snake\game_over.mp3";
+            string gameOverSoundPath = @"C:\Users\opilane\Source\Repos\Snake.v2\Snake\game_over.mp3";
             await PlaySoundAsync(gameOverSoundPath);
         }
 

@@ -69,8 +69,6 @@ namespace Snake
             }
             string str_score = Convert.ToString(score);
             WriteGameOver(str_score);
-
-            // Добавьте эти строки после завершения игры
             string playerName = _scoreManager.GetPlayerName();
             _scoreManager.SavePlayerScore(playerName, str_score);
             _scoreManager.DisplayResults();

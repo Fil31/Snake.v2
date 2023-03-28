@@ -22,7 +22,6 @@ namespace Snake
                 p.Move(i, direction);
                 pointList.Add(p);
             }
-
         }
 
         public void Move()
