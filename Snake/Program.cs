@@ -22,17 +22,17 @@ namespace Snake
             _soundManager.PlayBackgroundMusicAsync();
             Console.BackgroundColor = ConsoleColor.Green;
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
             int score = 0;
             Walls walls = new Walls(80, 25);
             walls.Draw();
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
             Point snakeTail = new Point(15, 15, '¤');
             Snake snake = new Snake(snakeTail, 5, Direction.RIGHT);
             snake.Draw();
             snake.FoodEaten += (sender, e) => _soundManager.PlayEatSoundAsync();
 
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Blue;
             FoodGenerator foodGenerator = new FoodGenerator(80, 25, '%');
             Point food = foodGenerator.GenerateFood();
             food.Draw();
